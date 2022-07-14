@@ -1,0 +1,24 @@
+:root {
+  /* #232a34 */
+  --bg-color: #3d5ca0;
+  --secondary-bg-color: #565656;
+  --text-color-primary: #fff;
+  
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: rgb(44, 61, 107);
+  background: radial-gradient(
+    circle,
+    rgba(44, 61, 107, 1) 0%,
+    rgba(35, 42, 52, 1) 100%
+  );
+
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--text-color-primary)
+}
