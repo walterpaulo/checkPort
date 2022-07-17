@@ -1,20 +1,55 @@
+<script>
+import ResultFinal from "./ResultFinal.vue";
+
+import { ref } from "vue";
+export default {
+  name: "FormCheckPort",
+  components: {
+    ResultFinal,
+  },
+
+  data() {
+    return {
+      port: ref(),
+      ip: "192.168.1.25",
+      show: false,
+      nowPort: "",
+    };
+  },
+  methods: {
+    resultPort() {
+      if (this.port === "" || this.ip === "") {
+        this.show = false;
+        return false;
+      }
+      this.nowPort = this.port;
+      this.show = true;
+    },
+    getIP() {
+      fetch("https://api.ipify.org?format=json")
+        .then((x) => x.json())
+        .then(({ ip }) => {
+          this.ip = ip;
+        });
+    },
+  },
+  mounted() {
+    this.getIP();
+  },
+};
+</script>
+
 <template>
   <div class="container">
     <h4>Checa Porta Aberta - CheckPort</h4>
     <div class="box-form">
       <label>IP</label>
-      <input type="text" value="192.158.15.40" name="ip" />
+      <input type="text" v-model="ip" name="ip" />
       <label>Port</label>
-      <input type="text" name="port" />
-      <input type="submit" value="Testar" />
+      <input type="text" name="port" v-model="port" />
+      <input type="submit" value="Testar" @click.prevent="resultPort" />
     </div>
-    <div class="result">
-      <p>Resultado:</p>
-      <div class="result-port">
-        <p>9000</p>
-        <p>Open/Aberta</p>
-      </div>
-    </div>
+    <ResultFinal :port="nowPort" v-if="show" />
   </div>
 </template>
 
